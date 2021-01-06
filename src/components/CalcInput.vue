@@ -1,37 +1,45 @@
 <template>
   <div class="buttons">
-    <button :class="button.class" 
+    <div :class="button.class"
+      :data-type="button.type"
       v-for="button in buttons" 
-      :key="button.value">
+      :key="button.value"
+      @click="buttonClick"
+    >
       {{ button.value }}
-    </button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    buttonClick: {
+      type: Function
+    }
+  },
   data() {
     return {
       buttons: [
-        { value: "C", class: "buttons__item" },
-        { value: "+/-", class: "buttons__item" },
-        { value: "%", class: "buttons__item" },
-        { value: "➗", class: "buttons__item" },
-        { value: "7", class: "buttons__item" },
-        { value: "8", class: "buttons__item" },
-        { value: "9", class: "buttons__item" },
-        { value: "x", class: "buttons__item" },
-        { value: "4", class: "buttons__item" },
-        { value: "5", class: "buttons__item" },
-        { value: "6", class: "buttons__item" },
-        { value: "-", class: "buttons__item" },
-        { value: "1", class: "buttons__item" },
-        { value: "2", class: "buttons__item" },
-        { value: "3", class: "buttons__item" },
-        { value: "+", class: "buttons__item v-double" },
-        { value: "0", class: "buttons__item" },
-        { value: ".", class: "buttons__item" },
-        { value: "=", class: "buttons__item" },
+        { value: "C", class: "buttons__item", type: 'clear' },
+        { value: "+/-", class: "buttons__item", type: 'operation' },
+        { value: "%", class: "buttons__item", type: 'operation' },
+        { value: "÷", class: "buttons__item", type: 'operation' },
+        { value: "7", class: "buttons__item", type: 'number' },
+        { value: "8", class: "buttons__item", type: 'number' },
+        { value: "9", class: "buttons__item", type: 'number' },
+        { value: "x", class: "buttons__item", type: 'operation' },
+        { value: "4", class: "buttons__item", type: 'number' },
+        { value: "5", class: "buttons__item", type: 'number' },
+        { value: "6", class: "buttons__item", type: 'number' },
+        { value: "-", class: "buttons__item", type: 'operation' },
+        { value: "1", class: "buttons__item", type: 'number' },
+        { value: "2", class: "buttons__item", type: 'number' },
+        { value: "3", class: "buttons__item", type: 'number' },
+        { value: "+", class: "buttons__item v-double", type: 'operation' },
+        { value: "0", class: "buttons__item", type: 'number' },
+        { value: ".", class: "buttons__item", type: 'number' },
+        { value: "=", class: "buttons__item", type: 'equal' },
       ]
     }
   },
@@ -48,6 +56,9 @@ export default {
   row-gap: 10px;
 }
 .buttons__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
   background: #f5bd89;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -55,14 +66,30 @@ export default {
   border: none;
   font-size: 18px;
   line-height: 22px;
+  cursor: pointer;
+  user-select: none;
   
   transition: all 0.3s ease-out;;
+}
+
+.buttons__item:hover {
+  background-color: gold;
+}
+
+.buttons__item:active {
+  transition: all 0.1s linear;
+  transform: translate(0, 2px);
+  box-shadow: none;
 }
 
 .calculator--dark .buttons__item {
   background: #545353;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: #F5BD89;
+}
+
+.calculator--dark .buttons__item:hover {
+  background-color: cornflowerblue;
 }
 
 .v-double {
